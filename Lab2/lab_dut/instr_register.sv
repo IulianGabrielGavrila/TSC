@@ -38,7 +38,10 @@ import instr_register_pkg::*;  // user-defined types are defined in instr_regist
         ADD   : result = operand_a + operand_b;
         SUB   : result = operand_a - operand_b;
         MULT  : result = operand_a * operand_b;
-        DIV   : result = operand_a / operand_b;
+        DIV   : if (operand_b != 0)
+                    result = operand_a / operand_b;
+                else
+                    result = 0;
         MOD   : result = operand_a % operand_b;
 	  endcase
       iw_reg[write_pointer] = '{opcode,operand_a,operand_b,result};
