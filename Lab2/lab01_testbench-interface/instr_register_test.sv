@@ -99,7 +99,38 @@ module instr_register_test
   endfunction: print_results
 
   function void check_results;
-    
+    result_t excepted_result;
+    if (instruction_word.opc == ZERO)
+      excepted_result = 'b0;
+    else
+      if (instruction_word.opc == PASSA)
+        excepted_result = instruction_word.op_a;
+      else
+        if (instruction_word.opc == PASSB)
+          excepted_result = instruction_word.op_b;
+        else
+          if(instruction_word.opc == ADD)
+            excepted_result = instruction_word.op_a + instruction_word.op_b;
+          else
+            if(instruction_word.opc == SUB)
+              excepted_result = instruction_word.op_a - instruction_word.op_b;
+            else
+              if (instruction_word.opc == MULT)
+                excepted_result = instruction_word.op_a * instruction_word.op_b;
+              else
+                if(instruction_word.opc == DIV)
+                  if (instruction_word.op_b == 0)
+                    excepted_result = 0;
+                  else
+                    excepted_result = instruction_word.op_a / instruction_word.op_b;
+                else
+                  if(instruction_word.opc == MOD)
+                    excepted_result = instruction_word.op_a % instruction_word.op_b;
+    if(excepted_result != instruction_word.result)
+      $display("Result has failed the verification\n");
+    else
+      $display("Result has passed the verification\n");
+      
   endfunction: check_results
 
 endmodule: instr_register_test
