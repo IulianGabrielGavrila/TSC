@@ -22,10 +22,12 @@ module instr_register_test
   parameter RD_NR = 20;
   parameter WR_NR = 20;
   int seed = 555;
+  instruction_t saved_data[0:31];
+  
 
   initial begin
     $display("\n\n***********************************************************");
-    $display(    "***  THIS IS NOT A SELF-CHECKING TESTBENCH (YET).  YOU  ***");
+    $display(    "***  THIS IS A SELF-CHECKING TESTBENCH (YET).  YOU DON'T  ***");
     $display(    "***  NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***");
     $display(    "***  MATCH THE INPUT VALUES FOR EACH REGISTER LOCATION  ***");
     $display(    "***********************************************************");
@@ -37,6 +39,7 @@ module instr_register_test
     reset_n       <= 1'b0;          // assert reset_n (active low)
     repeat (2) @(posedge clk) ;     // hold in reset for 2 clock cycles
     reset_n        = 1'b1;          // deassert reset_n (active low)
+    
 
     $display("\nWriting values to register stack...");
     @(posedge clk) load_en = 1'b1;  // enable writing to register
@@ -44,6 +47,7 @@ module instr_register_test
     repeat (WR_NR) begin
       @(posedge clk) randomize_transaction;
       @(negedge clk) print_transaction;
+      save_test_data;
     end
     @(posedge clk) load_en = 1'b0;  // turn-off writing to register
 
@@ -100,37 +104,56 @@ module instr_register_test
 
   function void check_results;
     result_t excepted_result;
-    if (instruction_word.opc == ZERO)
-      excepted_result = 'b0;
-    else
-      if (instruction_word.opc == PASSA)
-        excepted_result = instruction_word.op_a;
-      else
-        if (instruction_word.opc == PASSB)
-          excepted_result = instruction_word.op_b;
+    int number_of_errors;
+    //if(instruction_word.op_a == saved_data[read_pointer].op_a && instruction_word.op_b == saved_data[read_pointer].op_b && instruction_word.opc == saved_data[read_pointer].opc) begin
+    if(instruction_word.op_a != saved_data[read_pointer].op_a) begin
+      $display("Operation values were saved incorreclty for operand_a at register location %0d: ", read_pointer,"\n");
+      number_of_errors++;
+    end
+    if(instruction_word.op_b != saved_data[read_pointer].op_b) begin
+      $display("Operation values were saved incorreclty for operand_b at register location %0d: ", read_pointer,"\n");
+      number_of_errors++;
+    end
+    if(instruction_word.opc != saved_data[read_pointer].opc) begin
+      $display("Operation values were saved incorreclty for opcode at register location %0d: ", read_pointer,"\n");
+      number_of_errors++;
+    end
+
+    if(number_of_errors == 0) begin
+      if (instruction_word.opc == ZERO)
+        excepted_result = 'b0;
+      else if (instruction_word.opc == PASSA)
+          excepted_result = instruction_word.op_a;
+      else if (instruction_word.opc == PASSB)
+            excepted_result = instruction_word.op_b;
+      else if(instruction_word.opc == ADD)
+              excepted_result = instruction_word.op_a + instruction_word.op_b;
+      else if(instruction_word.opc == SUB)
+                excepted_result = instruction_word.op_a - instruction_word.op_b;
+      else if (instruction_word.opc == MULT)
+                  excepted_result = instruction_word.op_a * instruction_word.op_b;
+      else if(instruction_word.opc == DIV)
+        if (instruction_word.op_b == 0)
+          excepted_result = 0;
         else
-          if(instruction_word.opc == ADD)
-            excepted_result = instruction_word.op_a + instruction_word.op_b;
-          else
-            if(instruction_word.opc == SUB)
-              excepted_result = instruction_word.op_a - instruction_word.op_b;
-            else
-              if (instruction_word.opc == MULT)
-                excepted_result = instruction_word.op_a * instruction_word.op_b;
-              else
-                if(instruction_word.opc == DIV)
-                  if (instruction_word.op_b == 0)
-                    excepted_result = 0;
-                  else
-                    excepted_result = instruction_word.op_a / instruction_word.op_b;
-                else
-                  if(instruction_word.opc == MOD)
-                    excepted_result = instruction_word.op_a % instruction_word.op_b;
-    if(excepted_result != instruction_word.result)
-      $display("Result has failed the verification\n");
-    else
-      $display("Result has passed the verification\n");
+          excepted_result = instruction_word.op_a / instruction_word.op_b;
+      else if(instruction_word.opc == MOD)
+        if (instruction_word.op_b == 0)
+          excepted_result = 0;
+        else
+          excepted_result = instruction_word.op_a % instruction_word.op_b;
       
+      if(excepted_result != instruction_word.result)
+        $display("Result has failed the verification\n");
+      else
+        $display("Result has passed the verification\n");
+    end
+
+     
   endfunction: check_results
+
+  function void save_test_data;   
+    saved_data[write_pointer] = '{opcode,operand_a,operand_b,0};
+  endfunction: save_test_data
 
 endmodule: instr_register_test

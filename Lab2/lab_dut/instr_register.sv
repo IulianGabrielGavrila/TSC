@@ -35,7 +35,7 @@ import instr_register_pkg::*;  // user-defined types are defined in instr_regist
 	  	  ZERO  : result = 'b0;
         PASSA : result = operand_a;
         PASSB : result = operand_b;
-        ADD   : result = operand_a + operand_b;
+        ADD   : result = operand_a + operand_a; //18 Martie 2024, Gavrila Iulian-Gabriel, stricat dut intentionat pentru testare
         SUB   : result = operand_a - operand_b;
         MULT  : result = operand_a * operand_b;
         DIV   : if (operand_b != 0)
