@@ -19,9 +19,13 @@ module instr_register_test
   );
 
   timeunit 1ns/1ns;
-  parameter RD_NR = 20;
-  parameter WR_NR = 20;
+  parameter RD_NR = 50;
+  parameter WR_NR = 50;
+  parameter WR_ORD = 2;
+  parameter RD_ORD = 2;
   int seed = 555;
+  int nr_passed_tests = 0;
+  int nr_failed_tests = 0;
   instruction_t saved_data[0:31];
   
 
@@ -39,7 +43,8 @@ module instr_register_test
     reset_n       <= 1'b0;          // assert reset_n (active low)
     repeat (2) @(posedge clk) ;     // hold in reset for 2 clock cycles
     reset_n        = 1'b1;          // deassert reset_n (active low)
-    
+    foreach (saved_data[i])
+        saved_data[i] = '{opc:ZERO,default:0};
 
     $display("\nWriting values to register stack...");
     @(posedge clk) load_en = 1'b1;  // enable writing to register
@@ -58,15 +63,22 @@ module instr_register_test
       // later labs will replace this loop with iterating through a
       // scoreboard to determine which addresses were written and
       // the expected values to be read back
-      @(posedge clk) read_pointer = i;
+      //@(posedge clk) read_pointer = i;
+      @(posedge clk) case(RD_ORD)
+    
+      0 : read_pointer <= i;
+      1 : read_pointer <= $unsigned($random)%32;
+      2 : read_pointer <= 31-(i%32);
+    endcase
       @(negedge clk) print_results;
       check_results;
     end
 
     @(posedge clk) ;
+    send_final_results;
     $display("\n***********************************************************");
-    $display(  "***  THIS IS NOT A SELF-CHECKING TESTBENCH (YET).  YOU  ***");
-    $display(  "***  NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***");
+    $display(  "***  THIS IS A SELF-CHECKING TESTBENCH (YET).  YOU  ***");
+    $display(  "***  DON'T NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***");
     $display(  "***  MATCH THE INPUT VALUES FOR EACH REGISTER LOCATION  ***");
     $display(  "***********************************************************\n");
     $finish;
@@ -81,10 +93,19 @@ module instr_register_test
     // write_pointer values in a later lab
     //
     static int temp = 0;
+    static int temp2 = 31;
     operand_a     <= $random(seed)%16;                 // between -15 and 15
     operand_b     <= $unsigned($random)%16;            // between 0 and 15
     opcode        <= opcode_t'($unsigned($random)%8);  // between 0 and 7, cast to opcode_t type
-    write_pointer <= temp++;
+    //write_pointer <= temp++;
+    
+    case(WR_ORD)
+    
+      0 : write_pointer <= temp++;
+      1 : write_pointer <= $unsigned($random)%32;
+      2 : write_pointer <= temp2--;
+    endcase
+    
   endfunction: randomize_transaction
 
   function void print_transaction;
@@ -143,10 +164,16 @@ module instr_register_test
         else
           excepted_result = instruction_word.op_a % instruction_word.op_b;
       
-      if(excepted_result != instruction_word.result)
+      if(excepted_result != instruction_word.result) begin
+        
         $display("Result has failed the verification\n");
-      else
+        nr_failed_tests++;
+      end
+      else begin
+        
         $display("Result has passed the verification\n");
+        nr_passed_tests++;
+      end
     end
 
      
@@ -155,5 +182,10 @@ module instr_register_test
   function void save_test_data;   
     saved_data[write_pointer] = '{opcode,operand_a,operand_b,0};
   endfunction: save_test_data
+
+  function void send_final_results;
+    $display("Your tests have failed for %0d times ", nr_failed_tests,"\n");
+    $display("Your tests have passed for %0d times ", nr_passed_tests,"\n");
+  endfunction
 
 endmodule: instr_register_test
