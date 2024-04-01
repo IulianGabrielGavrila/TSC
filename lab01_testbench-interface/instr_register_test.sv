@@ -21,8 +21,8 @@ module instr_register_test
   timeunit 1ns/1ns;
   parameter RD_NR = 50;
   parameter WR_NR = 50;
-  parameter WR_ORD = 2;
-  parameter RD_ORD = 2;
+  parameter WR_ORD = 0;
+  parameter RD_ORD = 0;
   int seed = 555;
   int nr_passed_tests = 0;
   int nr_failed_tests = 0;
@@ -31,7 +31,7 @@ module instr_register_test
 
   initial begin
     $display("\n\n***********************************************************");
-    $display(    "***  THIS IS A SELF-CHECKING TESTBENCH (YET).  YOU DON'T  ***");
+    $display(    "***  THIS IS A SELF-CHECKING TESTBENCH.  YOU DON'T  ***");
     $display(    "***  NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***");
     $display(    "***  MATCH THE INPUT VALUES FOR EACH REGISTER LOCATION  ***");
     $display(    "***********************************************************");
@@ -77,7 +77,7 @@ module instr_register_test
     @(posedge clk) ;
     send_final_results;
     $display("\n***********************************************************");
-    $display(  "***  THIS IS A SELF-CHECKING TESTBENCH (YET).  YOU  ***");
+    $display(  "***  THIS IS A SELF-CHECKING TESTBENCH.  YOU  ***");
     $display(  "***  DON'T NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***");
     $display(  "***  MATCH THE INPUT VALUES FOR EACH REGISTER LOCATION  ***");
     $display(  "***********************************************************\n");
