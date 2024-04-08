@@ -19,10 +19,12 @@ module instr_register_test
   );
 
   timeunit 1ns/1ns;
-  parameter RD_NR = 50;
+  
   parameter WR_NR = 50;
+  parameter RD_NR = 50;
   parameter WR_ORD = 0;
   parameter RD_ORD = 0;
+  parameter TEST_NAME;
   int seed = 555;
   int nr_passed_tests = 0;
   int nr_failed_tests = 0;

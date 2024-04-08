@@ -1,0 +1,333 @@
+# 1
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+# Start time: 09:19:31 on Apr 08,2024
+# vlog -sv -timescale 1ps/1ps -work work -f sources.txt 
+# -- Compiling package instr_register_pkg
+# -- Compiling module instr_register
+# -- Importing package instr_register_pkg
+# -- Compiling module instr_register_test
+# -- Compiling module top
+# 
+# Top level modules:
+# 	top
+# End time: 09:19:31 on Apr 08,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -novopt -quiet -nocoverage "+notimingchecks" "+nowarnTSCALE" -sva top -GWR_NR=20 -GWR_ORD=0 -GRD_NR=20 -GRD_ORD=2 
+# Start time: 09:19:31 on Apr 08,2024
+# 
+# 
+# ***********************************************************
+# ***  THIS IS A SELF-CHECKING TESTBENCH.  YOU DON'T  ***
+# ***  NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***
+# ***  MATCH THE INPUT VALUES FOR EACH REGISTER LOCATION  ***
+# ***********************************************************
+# 
+# Reseting the instruction register...
+# 
+# Writing values to register stack...
+# Writing to register location 0: 
+#   opcode = 1 (PASSA)
+#   operand_a = -12
+#   operand_b = 7
+# 
+# Writing to register location 1: 
+#   opcode = 0 (ZERO)
+#   operand_a = -9
+#   operand_b = 1
+# 
+# Writing to register location 2: 
+#   opcode = 7 (MOD)
+#   operand_a = -15
+#   operand_b = 8
+# 
+# Writing to register location 3: 
+#   opcode = 5 (MULT)
+#   operand_a = -8
+#   operand_b = 7
+# 
+# Writing to register location 4: 
+#   opcode = 3 (ADD)
+#   operand_a = -9
+#   operand_b = 5
+# 
+# Writing to register location 5: 
+#   opcode = 4 (SUB)
+#   operand_a = 5
+#   operand_b = 3
+# 
+# Writing to register location 6: 
+#   opcode = 3 (ADD)
+#   operand_a = 3
+#   operand_b = 12
+# 
+# Writing to register location 7: 
+#   opcode = 6 (DIV)
+#   operand_a = 12
+#   operand_b = 3
+# 
+# Writing to register location 8: 
+#   opcode = 1 (PASSA)
+#   operand_a = 3
+#   operand_b = 14
+# 
+# Writing to register location 9: 
+#   opcode = 1 (PASSA)
+#   operand_a = -2
+#   operand_b = 9
+# 
+# Writing to register location 10: 
+#   opcode = 7 (MOD)
+#   operand_a = 9
+#   operand_b = 9
+# 
+# Writing to register location 11: 
+#   opcode = 3 (ADD)
+#   operand_a = 9
+#   operand_b = 7
+# 
+# Writing to register location 12: 
+#   opcode = 5 (MULT)
+#   operand_a = 7
+#   operand_b = 3
+# 
+# Writing to register location 13: 
+#   opcode = 7 (MOD)
+#   operand_a = 3
+#   operand_b = 5
+# 
+# Writing to register location 14: 
+#   opcode = 0 (ZERO)
+#   operand_a = -11
+#   operand_b = 15
+# 
+# Writing to register location 15: 
+#   opcode = 6 (DIV)
+#   operand_a = 15
+#   operand_b = 0
+# 
+# Writing to register location 16: 
+#   opcode = 4 (SUB)
+#   operand_a = 0
+#   operand_b = 14
+# 
+# Writing to register location 17: 
+#   opcode = 3 (ADD)
+#   operand_a = -2
+#   operand_b = 4
+# 
+# Writing to register location 18: 
+#   opcode = 0 (ZERO)
+#   operand_a = -12
+#   operand_b = 3
+# 
+# Writing to register location 19: 
+#   opcode = 4 (SUB)
+#   operand_a = -13
+#   operand_b = 8
+# 
+# 
+# Reading back the same register locations written...
+# Read from register location 31: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 30: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 29: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 28: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 27: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 26: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 25: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 24: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 23: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 22: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 21: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 20: 
+#   opcode = 0 (ZERO)
+#   operand_a = 0
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 19: 
+#   opcode = 4 (SUB)
+#   operand_a = -13
+#   operand_b = 8
+# 
+#   result = -21
+# 
+# Result has passed the verification
+# 
+# Read from register location 18: 
+#   opcode = 0 (ZERO)
+#   operand_a = -12
+#   operand_b = 3
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 17: 
+#   opcode = 3 (ADD)
+#   operand_a = -2
+#   operand_b = 4
+# 
+#   result = 2
+# 
+# Result has passed the verification
+# 
+# Read from register location 16: 
+#   opcode = 4 (SUB)
+#   operand_a = 0
+#   operand_b = 14
+# 
+#   result = -14
+# 
+# Result has passed the verification
+# 
+# Read from register location 15: 
+#   opcode = 6 (DIV)
+#   operand_a = 15
+#   operand_b = 0
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 14: 
+#   opcode = 0 (ZERO)
+#   operand_a = -11
+#   operand_b = 15
+# 
+#   result = 0
+# 
+# Result has passed the verification
+# 
+# Read from register location 13: 
+#   opcode = 7 (MOD)
+#   operand_a = 3
+#   operand_b = 5
+# 
+#   result = 3
+# 
+# Result has passed the verification
+# 
+# Read from register location 12: 
+#   opcode = 5 (MULT)
+#   operand_a = 7
+#   operand_b = 3
+# 
+#   result = 21
+# 
+# Result has passed the verification
+# 
+# Read from register location 11: 
+#   opcode = 3 (ADD)
+#   operand_a = 9
+#   operand_b = 7
+# 
+#   result = 16
+# 
+# Result has passed the verification
+# 
+# Your tests have failed for 0 times 
+# 
+# Your tests have passed for 21 times 
+# 
+# 
+# ***********************************************************
+# ***  THIS IS A SELF-CHECKING TESTBENCH.  YOU  ***
+# ***  DON'T NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***
+# ***  MATCH THE INPUT VALUES FOR EACH REGISTER LOCATION  ***
+# ***********************************************************
+# 
+# ** Note: $finish    : ../lab01_testbench-interface/instr_register_test.sv(85)
+#    Time: 456 ns  Iteration: 1  Instance: /top/test
+# End time: 09:19:32 on Apr 08,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

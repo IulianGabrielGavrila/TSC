@@ -1,0 +1,9 @@
+call run_test.bat 20 20 0 0 c CASE_INC_INC
+call run_test.bat 20 20 0 1 c CASE_INC_RAND
+call run_test.bat 20 20 0 2 c CASE_INC_DEC
+call run_test.bat 20 20 1 0 c CASE_RAND_INC
+call run_test.bat 20 20 1 1 c CASE_RAND_RAND
+call run_test.bat 20 20 1 2 c CASE_RAND_DEC
+call run_test.bat 20 20 2 0 c CASE_DEC_INC
+call run_test.bat 20 20 2 1 c CASE_DEC_RAND
+call run_test.bat 20 20 2 2 c CASE_DEC_DEC
