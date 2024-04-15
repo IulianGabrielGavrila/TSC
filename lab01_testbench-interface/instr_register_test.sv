@@ -24,8 +24,9 @@ module instr_register_test
   parameter RD_NR = 50;
   parameter WR_ORD = 0;
   parameter RD_ORD = 0;
-  parameter TEST_NAME;
-  int seed = 555;
+  parameter SEED_VAL = 0;
+  //parameter TEST_NAME;
+  int seed = SEED_VAL;
   int nr_passed_tests = 0;
   int nr_failed_tests = 0;
   instruction_t saved_data[0:31];
@@ -78,6 +79,7 @@ module instr_register_test
 
     @(posedge clk) ;
     send_final_results;
+    //case_report;
     $display("\n***********************************************************");
     $display(  "***  THIS IS A SELF-CHECKING TESTBENCH.  YOU  ***");
     $display(  "***  DON'T NEED TO VISUALLY VERIFY THAT THE OUTPUT VALUES     ***");
@@ -186,8 +188,32 @@ module instr_register_test
   endfunction: save_test_data
 
   function void send_final_results;
+    int fd;
     $display("Your tests have failed for %0d times ", nr_failed_tests,"\n");
     $display("Your tests have passed for %0d times ", nr_passed_tests,"\n");
-  endfunction
+    
+    fd = $fopen("../reports/regressions.txt", "a");
+    $fwrite(fd, "Case: ", WR_ORD, RD_ORD," ");
+    if (nr_failed_tests == 0) begin
+      $fwrite(fd,"Tests passed!\n");
+    end
+    else begin
+      $fwrite(fd,"Tests failed!\n");
+    end
+    $fclose(fd);
+  endfunction: send_final_results;
+
+  // function void case_report;
+  // int fd;
+  // fd = $fopen("../reports/regressions.txt", "a");
+  // $fwrite(fd, "Case: %d0 %d0", WR_ORD, RD_ORD);
+  // if (nr_failed_tests != 0) begin
+  //   $fwrite(fd,"Tests passed!\n");
+  // end
+  // else begin
+  //   $fwrite(fd,"Tests failed!\n");
+  // end
+  // $fclose(fd);
+  // endfunction
 
 endmodule: instr_register_test
