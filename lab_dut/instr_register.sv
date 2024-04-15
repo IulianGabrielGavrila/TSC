@@ -43,7 +43,10 @@ import instr_register_pkg::*;  // user-defined types are defined in instr_regist
                     result = operand_a / operand_b;
                 else
                     result = 0;
-        MOD   : result = operand_a % operand_b;
+        MOD   : if (operand_b !== 0)
+                    result = operand_a % operand_b;
+                else
+                    result = 0;
 	  endcase
       iw_reg[write_pointer] = '{opcode,operand_a,operand_b,result};
     end
