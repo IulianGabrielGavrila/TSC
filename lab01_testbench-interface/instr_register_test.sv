@@ -25,10 +25,11 @@ module instr_register_test
   parameter WR_ORD = 0;
   parameter RD_ORD = 0;
   parameter SEED_VAL = 0;
-  //parameter TEST_NAME;
+  parameter TEST_NAME;
   int seed = SEED_VAL;
   int nr_passed_tests = 0;
   int nr_failed_tests = 0;
+  string test_name = TEST_NAME;
   instruction_t saved_data[0:31];
   
 
@@ -193,7 +194,7 @@ module instr_register_test
     $display("Your tests have passed for %0d times ", nr_passed_tests,"\n");
     
     fd = $fopen("../reports/regressions.txt", "a");
-    $fwrite(fd, "Case: ", WR_ORD, RD_ORD," ");
+    $fwrite(fd, "Case: ", test_name," ");
     if (nr_failed_tests == 0) begin
       $fwrite(fd,"Tests passed!\n");
     end
